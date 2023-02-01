@@ -91,7 +91,7 @@ bool isFirstLine = false;
 int settingsIndex = 0;
 int charIndex = 0;
 int tableIndex = 0;
-const char *delimter = ",";
+const char *delimeter = ",";
 
 // Functions prototypes
 void setup();
@@ -183,10 +183,10 @@ void initMotors()
   digitalWrite(MOTOR_1_PIN, HIGH);
 
   pinMode(MOTOR_2_PIN, OUTPUT);
-  digitalWrite(MOTOR_1_PIN, HIGH);
+  digitalWrite(MOTOR_2_PIN, HIGH);
 
   pinMode(MOTOR_3_PIN, OUTPUT);
-  digitalWrite(MOTOR_1_PIN, HIGH);
+  digitalWrite(MOTOR_3_PIN, HIGH);
 }
 
 void handleSettingsMode()
@@ -604,9 +604,9 @@ void cleanReceptionVars()
 void serialDecodingFallbackScenario()
 {
   charIndex = 0;
-  cleanString();
   isFirstLine = false;
   isReceivingInProgress = false;
+  cleanString();
 }
 
 int decodeReceivedData()
@@ -654,7 +654,7 @@ int decodeRelayTimingSetting()
   int duration = 0;
 
   // Decode first element (socketID)
-  strtokIndx = strtok(receivedString, delimter); // starts
+  strtokIndx = strtok(receivedString, delimeter); // starts
   if (*strtokIndx == '0')                        // socketID can be 0
   {
     socketID = 0;
@@ -669,7 +669,7 @@ int decodeRelayTimingSetting()
   }
 
   // Decode second element (startTime)
-  strtokIndx = strtok(NULL, delimter); // this continues where the previous call left off
+  strtokIndx = strtok(NULL, delimeter); // this continues where the previous call left off
   if (*strtokIndx == '0')              // startTime can be 0
   {
     startTime = 0;
@@ -684,7 +684,7 @@ int decodeRelayTimingSetting()
   }
 
   // Decode third element (duration)
-  strtokIndx = strtok(NULL, delimter); // this continues where the previous call left off
+  strtokIndx = strtok(NULL, delimeter); // this continues where the previous call left off
   duration = atoi(strtokIndx);         // duration cannot be 0, no need to check it for containing "0"
   if (duration == ATOI_ERROR)
   {
